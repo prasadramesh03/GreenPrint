@@ -1,4 +1,3 @@
-# infra/terraform/main.tf
 provider "aws" {
   region = var.aws_region
 }
@@ -22,19 +21,18 @@ module "vpc" {
 }
 
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
-  
+  source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "greenprint-cluster"
   cluster_version = "1.21"
   
-  vpc_id          = module.vpc.vpc_id
-  subnets         = module.vpc.private_subnets
+  vpc_id  = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
   
-  node_groups = {
+  eks_managed_node_groups = {
     greenprint_nodes = {
-      desired_capacity = 2
-      max_capacity     = 3
-      min_capacity     = 1
+      desired_size = 2
+      max_size     = 3
+      min_size     = 1
       
       instance_types = ["t3.medium"]
     }
