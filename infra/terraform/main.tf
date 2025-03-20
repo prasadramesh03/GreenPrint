@@ -23,7 +23,7 @@ module "vpc" {
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "greenprint-cluster"
-  cluster_version = "1.21"
+  cluster_version = "1.28"
   
   vpc_id  = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
